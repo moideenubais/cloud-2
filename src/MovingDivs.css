@@ -1,0 +1,28 @@
+.moving-divs-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Adjust the height as needed */
+    overflow: hidden;
+  }
+  
+  .moving-div {
+    position: absolute;
+    width: 100px; /* Adjust the width and height as needed */
+    height: 100px;
+    background-color: red; /* Customize the div appearance */
+    animation: moveDivs 10s linear infinite; /* Define the animation */
+    visibility: hidden;
+  }
+  
+  @keyframes moveDivs {
+    0% {
+      left: -100px;
+      visibility: visible;
+    }
+  
+    100% {
+      left: 100%;
+      visibility: visible;
+    }
+  }
+  
