@@ -7,10 +7,14 @@
   
   .moving-div {
     position: absolute;
-    width: 100px; /* Adjust the width and height as needed */
-    height: 100px;
-    background-color: red; /* Customize the div appearance */
-    animation: moveDivs 10s linear infinite; /* Define the animation */
+    width: 100px; 
+    height: 65px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: moveDivs 10s linear infinite;
+    animation-direction: reverse;
     visibility: hidden;
   }
   
