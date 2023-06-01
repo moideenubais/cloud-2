@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./Cloud.css";
-import { INITIAL_POSITIONS, NUMBER_OF_CLOUDS } from "../constants/cloud";
+import classes from  "./Cloud.module.css";
+import { INITIAL_POSITIONS, NUMBER_OF_CLOUDS } from "../../constants/cloud";
 
 interface Cloud {
   id: number;
@@ -74,7 +74,7 @@ export const Clouds: React.FC = () => {
   };
 
   return (
-    <div className="sky">
+    <div className={classes.sky}>
       {clouds?.map((cloud) => {
         let selectionImage = null;
         if (cloud.clicked) {
@@ -85,7 +85,7 @@ export const Clouds: React.FC = () => {
         return (
           <div
             key={cloud.id}
-            className={`cloud`}
+            className={classes.cloud}
             style={{
               top: cloud.top,
               animationDelay: cloud.animationDelay,
@@ -95,12 +95,28 @@ export const Clouds: React.FC = () => {
             }}
           >
             {selectionImage && (
-              <img src={selectionImage} alt="selectionImage" className="crossTick" />
+              <img src={selectionImage} alt="selectionImage" className={classes.crossTick} />
             )}
             {cloud.id + 1}
           </div>
         );
       })}
+      
+      <div className={classes.circleContainer}>
+      {
+        Array.from({ length: 10 }, (_, index) =>{
+          const currentCloud = clouds.find((cloud:Cloud)=>cloud.id === index);
+          let selectionColor = ''
+          if(currentCloud && currentCloud.clicked){
+            selectionColor = currentCloud.validClick ? classes['bg-green']:classes['bg-red']
+          }
+          return (
+    <div
+      key={index}
+      className={`${classes.smallCircle} ${selectionColor}`}
+    >{index+1}</div>
+  )})
+      }</div>
     </div>
   );
 };

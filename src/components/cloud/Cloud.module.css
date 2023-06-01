@@ -22,10 +22,14 @@ body {
     animation: moveDivs 20s linear infinite;
     animation-direction: reverse;
     visibility: hidden;
-    background-image: url('../../public/images/cloud.png');
+    background-image: url('../../../public/images/cloud.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+  }
+
+  .cloud:hover {
+    cursor: pointer;
   }
 
   @keyframes moveDivs {
@@ -53,4 +57,30 @@ body {
     right: 10px;
     width: 20px;
     height: 20px;
+  }
+
+  .circleContainer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+  }
+
+  .smallCircle {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bg-green {
+    background-color: green;
+  }
+  .bg-red {
+    background-color: red;
   }

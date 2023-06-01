@@ -1,6 +1,6 @@
 import React from 'react';
 import MovingDivs from './MovingDivs';
-import { Clouds } from './components/Clouds';
+import { Clouds } from './components/cloud/Clouds';
 
 const App = () => {
   return (
