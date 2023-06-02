@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import classes from  "./Cloud.module.css";
+import classes from "./Cloud.module.css";
 import { INITIAL_POSITIONS, NUMBER_OF_CLOUDS } from "../../constants/cloud";
+import Modal from "../modal/Modal";
 
 interface Cloud {
   id: number;
@@ -13,34 +14,48 @@ interface Cloud {
 export const Clouds: React.FC = () => {
   const [clouds, setClouds] = useState<Cloud[]>([]);
   const [currentClick, setCurrentClick] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // Generate initial clouds
+    const generateClouds = () => {
+      const numbers = [...Array(NUMBER_OF_CLOUDS)].map((_, index) => index);
+
+      const shuffledArray = shuffleArray(
+        numbers.map((number) => ({ id: number }))
+      );
+
+      for (let i = 0; i < NUMBER_OF_CLOUDS; i++) {
+        const cloudData = {
+          top: INITIAL_POSITIONS[i % INITIAL_POSITIONS.length].top,
+          animationDelay: `${i * 2 - 8}s`,
+          clicked: false,
+          validClick: false,
+        };
+        shuffledArray[i] = { ...shuffledArray[i], ...cloudData };
+      }
+
+      setClouds(shuffledArray as Cloud[]);
+    };
     generateClouds();
   }, []);
 
-  const generateClouds = () => {
-    const numbers = [...Array(NUMBER_OF_CLOUDS)].map((_, index) => index);
-
-    const shuffledArray = shuffleArray(
-      numbers.map((number) => ({ id: number }))
-    );
-
-    for (let i = 0; i < NUMBER_OF_CLOUDS; i++) {
-      const cloudData = {
-        top: INITIAL_POSITIONS[i % INITIAL_POSITIONS.length].top,
-        animationDelay: `${i * 2 - 8}s`,
-        clicked: false,
-        validClick: false,
-      };
-      shuffledArray[i] = { ...shuffledArray[i], ...cloudData };
-    }
-
-    setClouds(shuffledArray as Cloud[]);
-  };
+  useEffect(() => {
+    if (currentClick === NUMBER_OF_CLOUDS) setShowModal(true);
+  }, [currentClick]);
 
   const handleCloudClick = (cloud: Cloud) => {
-    if (!clouds) return;
+    if (cloud.clicked && cloud.validClick) return;
+    if (cloud.clicked) {
+      setClouds((prevClouds: Cloud[]) => {
+        return prevClouds.map((prevCloud: Cloud) =>
+          prevCloud.id === cloud.id
+            ? { ...prevCloud, validClick: false, clicked: false }
+            : prevCloud
+        );
+      });
+      return;
+    }
     if (cloud.id === currentClick) {
       setClouds((prevClouds: Cloud[]) => {
         return prevClouds.map((prevCloud: Cloud) =>
@@ -91,32 +106,41 @@ export const Clouds: React.FC = () => {
               animationDelay: cloud.animationDelay,
             }}
             onClick={() => {
-              !cloud.clicked && handleCloudClick(cloud);
+              handleCloudClick(cloud);
             }}
           >
             {selectionImage && (
-              <img src={selectionImage} alt="selectionImage" className={classes.crossTick} />
+              <img
+                src={selectionImage}
+                alt="selectionImage"
+                className={classes.crossTick}
+              />
             )}
             {cloud.id + 1}
           </div>
         );
       })}
-      
+
       <div className={classes.circleContainer}>
-      {
-        Array.from({ length: 10 }, (_, index) =>{
-          const currentCloud = clouds.find((cloud:Cloud)=>cloud.id === index);
-          let selectionColor = ''
-          if(currentCloud && currentCloud.clicked){
-            selectionColor = currentCloud.validClick ? classes['bg-green']:classes['bg-red']
-          }
+        {Array.from({ length: 10 }, (_, index) => {
+          const currentCloud = clouds.find(
+            (cloud: Cloud) => cloud.id === index
+          );
           return (
-    <div
-      key={index}
-      className={`${classes.smallCircle} ${selectionColor}`}
-    >{index+1}</div>
-  )})
-      }</div>
+            <div
+              key={index}
+              className={`${classes.smallCircle} ${
+                currentCloud && currentCloud.clicked && currentCloud.validClick
+                  ? classes["bg-green"]
+                  : ""
+              }`}
+            >
+              {index + 1}
+            </div>
+          );
+        })}
+      </div>
+      {showModal && <Modal message="Task Completed" />}
     </div>
   );
 };

@@ -4,83 +4,84 @@ body {
 }
 
 .sky {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  /* Style the cloud element */
-  .cloud {
-    position: absolute;
-    width: 100px; 
-    height: 65px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: moveDivs 20s linear infinite;
-    animation-direction: reverse;
-    visibility: hidden;
-    background-image: url('../../../public/images/cloud.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Style the cloud element */
+.cloud {
+  position: absolute;
+  width: 100px;
+  height: 65px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: moveDivs 20s linear infinite;
+  animation-direction: reverse;
+  visibility: hidden;
+  background-image: url("../../../public/images/cloud.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  user-select: none;
+}
+
+.cloud:hover {
+  cursor: pointer;
+}
+
+@keyframes moveDivs {
+  0% {
+    left: -100px;
+    visibility: visible;
   }
 
-  .cloud:hover {
-    cursor: pointer;
+  100% {
+    left: 100%;
+    visibility: visible;
   }
+}
 
-  @keyframes moveDivs {
-    0% {
-      left: -100px;
-      visibility: visible;
-    }
-  
-    100% {
-      left: 100%;
-      visibility: visible;
-    }
-  }
-  
-  .border-green {
-    border: 1px solid green;
-  }
-  .border-red {
-    border: 1px solid red;
-  }
+.border-green {
+  border: 1px solid green;
+}
+.border-red {
+  border: 1px solid red;
+}
 
-  .crossTick {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-  }
+.crossTick {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+}
 
-  .circleContainer {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-  }
+.circleContainer {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
 
-  .smallCircle {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.smallCircle {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .bg-green {
-    background-color: green;
-  }
-  .bg-red {
-    background-color: red;
-  }
+.bg-green {
+  background-color: green;
+}
+.bg-red {
+  background-color: red;
+}
