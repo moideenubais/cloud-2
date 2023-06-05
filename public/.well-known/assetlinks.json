@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "app.netlify.chimerical_sundae_385a48.twa",
+                     "sha256_cert_fingerprints": ["BD:62:79:05:DE:47:41:49:DF:D6:83:C0:D4:C9:E0:0E:CA:2A:DC:1E:57:E6:D7:ED:50:1A:41:89:9F:34:BE:D5"] }
+      }
+]
