@@ -13,8 +13,8 @@ body {
 /* Style the cloud element */
 .cloud {
   position: absolute;
-  width: 100px;
-  height: 65px;
+  width: 65px;
+  height: 41px;
   font-weight: bold;
   display: flex;
   justify-content: center;
@@ -54,26 +54,26 @@ body {
 
 .crossTick {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 20px;
-  height: 20px;
+  top: 0px;
+  right: 7px;
+  width: 15px;
+  height: 15px;
 }
 
 .circleContainer {
   display: flex;
   justify-content: center;
   position: fixed;
-  bottom: 0px;
+  bottom: 10px;
   width: 100%;
 }
 
 .smallCircle {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   background-color: white;
-  margin: 10px;
+  margin: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,4 +84,36 @@ body {
 }
 .bg-red {
   background-color: red;
+}
+
+@media (min-width: 500px) {
+  .cloud {
+    width: 100px;
+    height: 65px;
+  }
+  .crossTick {
+    top: 8px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+  .circleContainer {
+    bottom: 5px;
+  }
+  .smallCircle {
+    width: 30px;
+    height: 30px;
+    margin: 6px;
+  }
+}
+
+@media (min-width: 700px) {
+  .circleContainer {
+    bottom: 0px;
+  }
+  .smallCircle {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+  }
 }
