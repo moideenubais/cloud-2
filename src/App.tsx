@@ -1,11 +1,11 @@
 import React from 'react';
-import { Clouds } from './components/Cloud/Clouds';
+import NumberJackpot from './components/NumberJackpot/NumberJackpot';
 
 const App = () => {
   registerServiceWorker()
   return (
     <div className="app">
-      <Clouds />
+      <NumberJackpot />
     </div>
   );
 };

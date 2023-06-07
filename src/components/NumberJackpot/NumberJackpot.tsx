@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { GAME_ROUNDS } from "../../constants/numberJackpot";
 import classes from "./NumberJackpot.module.css";
 import Modal from "../Modal/Modal";
@@ -33,7 +33,7 @@ const NumberJackpot: FC = () => {
     const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
     return randomNumber;
   }
-  const generateNumberJackpot = () => {
+  const generateNumberJackpot = useCallback(() => {
     const startingNumber = getRandomNumber(1, 6);
     const numberArray: number[] = [];
     for (let number = startingNumber; number < startingNumber + 4; number++) {
@@ -55,10 +55,10 @@ const NumberJackpot: FC = () => {
       numbers: numberArray,
       options: shuffleArray(optionsArray),
     });
-  };
+  },[]);
   useEffect(() => {
     generateNumberJackpot();
-  }, []);
+  }, [generateNumberJackpot]);
 
   const handleSelection = (selected: number) => {
     if (selected === numberSet?.numbers[numberSet.position]) {
