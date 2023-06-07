@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { GAME_ROUNDS } from "../../constants/numberJackpot";
 import classes from "./NumberJackpot.module.css";
-import Modal from "../Modal/Modal";
+import Modal from "../modal/Modal";
 
 interface NumberSet {
   numbers: number[];

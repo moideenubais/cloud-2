@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Cloud.module.css";
 import { INITIAL_POSITIONS, NUMBER_OF_CLOUDS } from "../../constants/cloud";
-import Modal from "../Modal/Modal";
+import Modal from "../modal/Modal";
 
 interface Cloud {
   id: number;
