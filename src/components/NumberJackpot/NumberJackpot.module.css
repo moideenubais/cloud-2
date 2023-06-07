@@ -56,17 +56,38 @@
   width: 15px;
   height: 174px;
   display: flex;
+  border-radius: 5px;
   background-color: #beb7bf;
   flex-direction: column-reverse;
 }
 .progressBar {
   width: 100%;
+  border-radius: 5px;
   height: 50%;
   background-color: #fd3e33;
 }
 
 .questionColor {
   color: #0e03f1;
+}
+.reset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: orange;
+    padding: 5px;
+    border-radius: 5px;
+    width: fit-content;
+    cursor: pointer;
+    user-select: none;
+}
+
+.numberAndReset {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* * {
