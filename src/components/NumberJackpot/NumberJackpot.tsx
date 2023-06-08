@@ -39,7 +39,6 @@ const NumberJackpot: FC = () => {
     return randomNumber;
   }
   const generateNumberJackpot = useCallback(() => {
-    if(animateScroll) return;
     const numberSetArray: NumberSet[] = [];
     for (let i = 0; i < 10; i++) {
       const startingNumber = getRandomNumber(1, 6);
