@@ -1,6 +1,6 @@
 [{
         "relation": ["delegate_permission/common.handle_all_urls"],
         "target" : { "namespace": "android_app", "package_name": "app.netlify.chimerical_sundae_385a48.twa",
-                     "sha256_cert_fingerprints": ["BD:62:79:05:DE:47:41:49:DF:D6:83:C0:D4:C9:E0:0E:CA:2A:DC:1E:57:E6:D7:ED:50:1A:41:89:9F:34:BE:D5"] }
+                     "sha256_cert_fingerprints": ["F1:0E:AC:33:21:3A:4C:6E:44:71:89:BD:71:21:F1:EA:84:BC:9A:98:19:A7:A6:0E:D4:9A:6F:47:0B:B2:E9:E0"] }
       }
 ]
