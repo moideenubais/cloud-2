@@ -191,6 +191,7 @@ const NumberJackpot: FC = () => {
         <img
           className={classes.titleImage}
           src="./images/numberJackpot/title.png"
+          alt="title"
         />
       )}
     </div>
