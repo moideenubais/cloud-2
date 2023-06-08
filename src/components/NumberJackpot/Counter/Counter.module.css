@@ -1,0 +1,46 @@
+.numberContainer {
+  height: 100px;
+  background-color: #003341;
+  width: 235px;
+  display: flex;
+  padding: 5px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  /* overflow: hidden; */
+}
+.numberCollContainer {
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+}
+.scrollAnimation {
+  animation: scrollUp 2s ease-in-out 1 forwards;
+}
+.numberBox {
+  width: 90%;
+  min-height: 90%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 5px;
+  color: #e26e2c;
+  background-color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  user-select: none;
+  animation: scrollUp 2s ease-in-out 1 forwards;
+}
+.questionColor {
+  color: #0e03f1;
+}
+@keyframes scrollUp {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-1015%);
+    }
+  }

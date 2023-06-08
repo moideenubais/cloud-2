@@ -1,27 +1,40 @@
 .numberContainer {
-  height: 100px;
+  height: 60px;
   background-color: #003341;
-  width: 235px;
+  width: 156px;
   display: flex;
-  padding: 5px;
+  padding: 0px;
   border-radius: 10px;
+  position: absolute;
+  margin-right: 18px;
+  margin-top: -31px;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.numberCollContainer {
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+}
+.scrollAnimation {
+  animation: scrollUp 2s ease-in-out 1 forwards;
 }
 .numberBox {
   width: 90%;
-  height: 90%;
+  min-height: 90%;
   justify-content: center;
   align-items: center;
   display: flex;
-  margin: 5px;
+  margin: 4px;
   color: #e26e2c;
   background-color: white;
   font-weight: 500;
   border-radius: 5px;
   user-select: none;
-} 
+}
 
 .optionContainer {
   width: 100px;
@@ -38,7 +51,11 @@
   border: 5px solid #995faf;
   color: white;
   display: flex;
-  background-color: #641882;
+  /* background-color: #641882; */
+  background-image: url('../../../public/images/numberJackpot/NumberBG.png');
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -50,7 +67,8 @@
   justify-content: space-around;
   width: 100%;
   height: 100vh;
-  background-color: #33185a;
+  overflow: hidden;
+  /* background-color: #33185a; */
 }
 .progressContainer {
   width: 15px;
@@ -71,25 +89,60 @@
   color: #0e03f1;
 }
 .reset {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    background-color: orange;
-    padding: 5px;
-    border-radius: 5px;
-    width: fit-content;
-    cursor: pointer;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  top:332px;
+  margin-right: 20px;
+  position: absolute;
+  background-color: transparent;
+  border-radius: 5px;
+  height: 38px;
+  width: 65px;
 }
 
 .numberAndReset {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-left: 90px;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("../../../public/images/numberJackpot/robotClosed.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 600px;
+  width: 350px;
+  position: relative;
+}
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../../public/images/numberJackpot/Space.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.titleImage {
+  width: 50%;
+  height: 80%;
 }
 
 /* * {
     box-sizing: border-box;
 } */
+
+@keyframes scrollUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-540px);
+  }
+}

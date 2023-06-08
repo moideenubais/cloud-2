@@ -11,9 +11,14 @@ interface NumberSet {
 
 const NumberJackpot: FC = () => {
   const [numberSet, setNumberSet] = useState<NumberSet | null>(null);
-  const [currentSetIndex, setCurrentSetIndex] = useState(0);
+  const [currentGameRound, setCurrentGameRound] = useState(1);
   const [progress, setProgress] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [numberCollection, setNumberCollection] = useState<NumberSet[]>([]);
+  const [animateScroll, setAnimateScroll] = useState(false);
+  const [flashScreen, setFlashScreen] = useState(true);
+
+  console.log("number", numberSet);
 
   function shuffleArray(array: number[]): number[] {
     const shuffledArray = [...array];
@@ -34,59 +39,102 @@ const NumberJackpot: FC = () => {
     return randomNumber;
   }
   const generateNumberJackpot = useCallback(() => {
-    const startingNumber = getRandomNumber(1, 6);
-    const numberArray: number[] = [];
-    for (let number = startingNumber; number < startingNumber + 4; number++) {
-      numberArray.push(number);
-    }
-    const position = getRandomNumber(0, 3);
+    if(animateScroll) return;
+    const numberSetArray: NumberSet[] = [];
+    for (let i = 0; i < 10; i++) {
+      const startingNumber = getRandomNumber(1, 6);
+      const numberArray: number[] = [];
+      for (let number = startingNumber; number < startingNumber + 4; number++) {
+        numberArray.push(number);
+      }
+      const position = getRandomNumber(0, 3);
 
-    const optionsArray = [numberArray[position]];
-    for (let i = 1; i <= 2; i++) {
-      const randomNumber = getRandomNumber(1, 20);
-      if (optionsArray.includes(randomNumber)) {
+      const existsAlready = numberSetArray.find((jackpot) => {
+        return (
+          jackpot.position === position && jackpot.numbers[0] === numberArray[0]
+        );
+      });
+      if (existsAlready) {
         i--;
         continue;
       }
-      optionsArray.push(randomNumber);
+
+      const optionsArray = [numberArray[position]];
+      for (let i = 1; i <= 2; i++) {
+        const randomNumber = getRandomNumber(1, 20);
+        if (optionsArray.includes(randomNumber)) {
+          i--;
+          continue;
+        }
+        optionsArray.push(randomNumber);
+      }
+      numberSetArray.push({
+        position: position,
+        numbers: numberArray,
+        options: shuffleArray(optionsArray),
+      });
     }
-    setNumberSet({
-      position: position,
-      numbers: numberArray,
-      options: shuffleArray(optionsArray),
-    });
-  },[]);
+    setNumberCollection(numberSetArray);
+    setAnimateScroll(true);
+    setTimeout(() => {
+      setNumberSet(numberSetArray[0]);
+    }, 2000);
+  }, []);
   useEffect(() => {
     generateNumberJackpot();
+    const flashTimout = setTimeout(() => {
+      setFlashScreen(false);
+    }, 1500);
+
+    return () => {
+      clearTimeout(flashTimout);
+    };
   }, [generateNumberJackpot]);
+
+  useEffect(() => {
+    // if (animateScroll) {
+    //   const timer = setTimeout(() => {
+    //     setAnimateScroll(false);
+    //   }, 2000);
+    //   return () => {
+    //     clearTimeout(timer);
+    //   };
+    // }
+  }, [animateScroll]);
 
   const handleSelection = (selected: number) => {
     if (selected === numberSet?.numbers[numberSet.position]) {
-      const progress = Math.floor(((currentSetIndex + 1) * 100) / GAME_ROUNDS);
+      const progress = Math.floor((currentGameRound * 100) / GAME_ROUNDS);
       console.log("correct selection");
-      if (currentSetIndex === GAME_ROUNDS - 1) {
+      if (currentGameRound === GAME_ROUNDS) {
         setProgress(progress);
         setShowModal(true);
         return;
       }
       generateNumberJackpot();
-      setCurrentSetIndex((prev) => prev + 1);
+      setCurrentGameRound((prev) => prev + 1);
       setProgress(progress);
+      setNumberSet(null);
+      setAnimateScroll(true);
       return;
     }
     console.log("wrong selection");
   };
 
   return (
-    <div className={classes.gameContainer}>
-      <div className={classes.progressContainer}>
-        <div
-          className={classes.progressBar}
-          style={{ height: `${progress}%` }}
-        ></div>
-      </div>
-      <div className={classes.numberAndReset}>
-        <div className={classes.numberContainer}>
+    <div className={classes.container}>
+      {!flashScreen ? (
+        <div className={classes.gameContainer}>
+          <div className={classes.progressContainer}>
+            <div
+              className={classes.progressBar}
+              style={{ height: `${progress}%` }}
+            ></div>
+          </div>
+          <div 
+          style={{backgroundImage:!animateScroll?'url(./images/numberJackpot/robotOpen.png)':'url(./images/numberJackpot/robotClosed.png)'}}
+           className={classes.numberAndReset}>
+            {/* <div className={classes.numberContainer}>
           {numberSet?.numbers.map((number, index) => {
             const hiddenNumberColor =
               index === numberSet.position ? classes.questionColor : "";
@@ -96,24 +144,56 @@ const NumberJackpot: FC = () => {
               </div>
             );
           })}
-        </div>
-        <div className={classes.reset} onClick={generateNumberJackpot}>
-          Try another
-        </div>
-      </div>
-      <div className={classes.optionContainer}>
-        {numberSet?.options.map((number) => {
-          return (
-            <div
-              className={classes.optionBox}
-              onClick={() => handleSelection(number)}
-            >
-              {number}
+        </div> */}
+            <div className={classes.numberContainer}>
+              {numberCollection.map((coll) => (
+                <div className={`${classes.numberCollContainer}`}>
+                  {coll?.numbers.map((number, index) => {
+                    const hiddenNumberColor =
+                      index === coll.position ? classes.questionColor : "";
+                    return (
+                      <div
+                        className={`${
+                          classes.numberBox
+                        } ${hiddenNumberColor}  ${
+                          animateScroll ? classes.scrollAnimation : ""
+                        }`}
+                        onAnimationEnd={() => {
+                          setAnimateScroll(false);
+                        }}
+                      >
+                        {index === coll.position ? "?" : number}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
             </div>
-          );
-        })}
-      </div>
-      {showModal && <Modal message="Task Completed" />}
+            <div
+              className={classes.reset}
+              onClick={generateNumberJackpot}
+            ></div>
+          </div>
+          <div className={classes.optionContainer}>
+            {numberSet?.options.map((number) => {
+              return (
+                <div
+                  className={classes.optionBox}
+                  onClick={() => handleSelection(number)}
+                >
+                  {number}
+                </div>
+              );
+            })}
+          </div>
+          {showModal && <Modal message="Task Completed" />}
+        </div>
+      ) : (
+        <img
+          className={classes.titleImage}
+          src="./images/numberJackpot/title.png"
+        />
+      )}
     </div>
   );
 };
