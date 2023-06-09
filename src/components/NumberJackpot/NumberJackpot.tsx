@@ -16,7 +16,7 @@ const NumberJackpot: FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [numberCollection, setNumberCollection] = useState<NumberSet[]>([]);
   const [animateScroll, setAnimateScroll] = useState(false);
-  const [flashScreen, setFlashScreen] = useState(true);
+  const [splashScreen, setSplashScreen] = useState(true);
 
   console.log("number", numberSet);
 
@@ -81,12 +81,12 @@ const NumberJackpot: FC = () => {
   }, []);
   useEffect(() => {
     generateNumberJackpot();
-    const flashTimout = setTimeout(() => {
-      setFlashScreen(false);
+    const splashTimout = setTimeout(() => {
+      setSplashScreen(false);
     }, 1500);
 
     return () => {
-      clearTimeout(flashTimout);
+      clearTimeout(splashTimout);
     };
   }, [generateNumberJackpot]);
 
@@ -122,7 +122,7 @@ const NumberJackpot: FC = () => {
 
   return (
     <div className={classes.container}>
-      {!flashScreen ? (
+      {!splashScreen ? (
         <div className={classes.gameContainer}>
           <div className={classes.progressContainer}>
             <div
