@@ -1,12 +1,16 @@
 import React from 'react';
-import NumberJackpot from './components/NumberJackpot/NumberJackpot';
+import { DndProvider } from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend'
+import WasteSeg from './components/WasteSeg/WasteSeg';
 
 const App = () => {
   registerServiceWorker()
   return (
+    <DndProvider backend={HTML5Backend}>
     <div className="app">
-      <NumberJackpot />
+      <WasteSeg />
     </div>
+    </DndProvider>
   );
 };
 

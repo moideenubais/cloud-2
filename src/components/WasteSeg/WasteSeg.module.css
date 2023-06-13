@@ -1,0 +1,19 @@
+.gameContainer {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wasteBinContainer {
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.wasteItemContainer {
+  display: flex;
+  margin-top: 40px;
+}
