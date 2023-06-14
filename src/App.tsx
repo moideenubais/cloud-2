@@ -45,27 +45,33 @@ const App = () => {
     }
   }, [isMobile]);
   useEffect(() => {
-    const hideAddressBar = () => {
-      if (
-        window.innerWidth < window.innerHeight &&
-        !document.fullscreenElement // Check if browser is already in fullscreen mode
-      ) {
-        window.scrollTo(0, 1); // Scroll to hide the address bar
+    const handleOrientationChange = () => {
+      const isPortrait = window.innerWidth < window.innerHeight;
+
+      if (isPortrait) {
+        // Redirect to landscape view
+        if (window.screen.orientation && window.screen.orientation.lock) {
+          window.screen.orientation.lock('landscape');
+        }
       }
     };
 
-    window.addEventListener('orientationchange', hideAddressBar);
-    window.addEventListener('resize', hideAddressBar);
+    // Listen for orientation changes
+    window.addEventListener('orientationchange', handleOrientationChange);
 
+    // Call the function on component mount
+    handleOrientationChange();
+
+    // Clean up the event listener when the component is unmounted
     return () => {
-      window.removeEventListener('orientationchange', hideAddressBar);
-      window.removeEventListener('resize', hideAddressBar);
+      window.removeEventListener('orientationchange', handleOrientationChange);
     };
-  }, [])
+  
+  }, []);
   
   return (
     <DndProvider backend={dndBackend}>
-      <div className={classes.container}>
+      <div >
         <WasteSeg />
         {isMobile && <Preview generator={generatePreview} />}
       </div>
