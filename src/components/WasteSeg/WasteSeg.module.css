@@ -4,20 +4,19 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
 }
 
 .wasteBinContainer {
   display: flex;
-  width: 50%;
-  justify-content: space-around;
+  height: 80%;
+  width: 80%;
 }
 
 .wasteItemContainer {
   display: flex;
   overflow-x: scroll;
-  margin-top: 40px;
-  width: fit-content;
+  width: auto;
   max-width: 80%;
-  white-space: nowrap;
+  height: 20%;
 }

@@ -1,7 +1,8 @@
 .wasteBin {
-  width: 500px;
-  height: 300px;
-  background-size: cover;
+  width: 100%;
+  display: flex;
+  background-size: contain;
+  margin-bottom: 30px;
   background-repeat: no-repeat;
   background-position: center;
 }
