@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-import { Clouds } from "../Cloud/Clouds";
+import React from "react";
+import { Clouds } from "../cloud/Clouds";
 import NumberJackpot from "../NumberJackpot/NumberJackpot";
 import classes from "./Home.module.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import WasteSegregation from "../WasteSeg/WasteSegregation";
 
 const Navigation: React.FC = () => {
