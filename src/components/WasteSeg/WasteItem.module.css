@@ -1,3 +1,22 @@
 .wasteContainer {
- min-width: 100px;
+  width: fit-content;
+  margin-left: 50px;
+}
+
+.wasteContainer img {
+  width: 60px;
+  height: 60px;
+}
+
+@media (min-height: 400px) {
+  .wasteContainer img {
+    width: 80px;
+    height: 80px;
+  }
+}
+@media (min-height: 650px) {
+  .wasteContainer img {
+    width: 100px;
+    height: 100px;
+  }
 }

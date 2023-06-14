@@ -4,6 +4,19 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import WasteSeg from "./components/WasteSeg/WasteSeg";
 import MobileDetect from "mobile-detect";
 import { TouchBackend } from "react-dnd-touch-backend";
+import { Preview } from "react-dnd-preview";
+import classes from './App.module.css'
+
+const generatePreview = ({ item, style }: any) => {
+  return (
+    <div style={style} className={classes.previewContainer}>
+      <img
+        src={`./images/wasteSeg/${item.url}.png`}
+        alt="wasteItemImage"
+      />
+    </div>
+  );
+};
 
 const App = () => {
   const md = new MobileDetect(window.navigator.userAgent);
@@ -35,6 +48,7 @@ const App = () => {
     <DndProvider backend={dndBackend}>
       <div className="app">
         <WasteSeg />
+        {isMobile && <Preview generator={generatePreview} />}
       </div>
     </DndProvider>
   );

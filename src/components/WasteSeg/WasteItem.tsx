@@ -12,7 +12,7 @@ interface Props {
 const WasteItem: React.FC<Props> = ({ id, url, type }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type,
-    item: { id: id },
+    item: { id: id,url },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
