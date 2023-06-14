@@ -15,5 +15,9 @@
 
 .wasteItemContainer {
   display: flex;
+  overflow-x: scroll;
   margin-top: 40px;
+  width: fit-content;
+  max-width: 80%;
+  white-space: nowrap;
 }
