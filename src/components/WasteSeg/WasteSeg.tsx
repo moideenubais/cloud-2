@@ -6,14 +6,16 @@ import { SANITARY_iTEMS, WASTE_BINS } from "../../constants/wasteSeg";
 import { DRY_iTEMS } from "../../constants/wasteSeg";
 import { WET_iTEMS } from "../../constants/wasteSeg";
 import { WasteItemType } from "./types";
+import Modal from "../modal/Modal";
 
 const WasteSeg: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [wasteBins, setWasteBins] = useState(WASTE_BINS);
   const [wasteItems, setWasteItems] = useState<WasteItemType[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const combinedArray = DRY_iTEMS.concat(WET_iTEMS,SANITARY_iTEMS);
+    const combinedArray = DRY_iTEMS.concat(WET_iTEMS, SANITARY_iTEMS);
     setWasteItems(shuffleArray(combinedArray));
   }, []);
 
@@ -22,6 +24,7 @@ const WasteSeg: React.FC = () => {
     const updatedWasteItems = wasteItems.filter(
       (wasteItem) => wasteItem.id !== id
     );
+    if (updatedWasteItems.length === 0) setShowModal(true);
     setWasteItems(updatedWasteItems);
   };
 
@@ -64,6 +67,7 @@ const WasteSeg: React.FC = () => {
           );
         })}
       </div>
+      {showModal && <Modal message="Task Completed" />}
     </div>
   );
 };

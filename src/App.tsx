@@ -65,7 +65,7 @@ const App = () => {
   
   return (
     <DndProvider backend={dndBackend}>
-      <div className="app">
+      <div className={classes.container}>
         <WasteSeg />
         {isMobile && <Preview generator={generatePreview} />}
       </div>
