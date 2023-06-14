@@ -1,0 +1,28 @@
+.homeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: brown;
+    width: 100vw;
+    height: 100vh;
+}
+
+.titleContainer {
+    display: flex;
+    width: 400px;
+    flex-flow: wrap;
+}
+
+.titleContainer div {
+    width: 150px;
+    height: 150px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    margin:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    user-select: none;
+    cursor: pointer;
+}

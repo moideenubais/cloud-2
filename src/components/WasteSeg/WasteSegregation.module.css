@@ -1,0 +1,20 @@
+.previewContainer {
+}
+.previewContainer img {
+  width: 60px;
+  height: 60px;
+}
+
+@media (min-height: 400px) {
+  .previewContainer img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-height: 650px) {
+  .previewContainer img {
+    width: 100px;
+    height: 100px;
+  }
+}

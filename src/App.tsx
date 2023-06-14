@@ -1,27 +1,8 @@
-import React, { useEffect } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import WasteSeg from "./components/WasteSeg/WasteSeg";
-import MobileDetect from "mobile-detect";
-import { TouchBackend } from "react-dnd-touch-backend";
-import { Preview } from "react-dnd-preview";
-import classes from './App.module.css'
+import React from "react";
 
-const generatePreview = ({ item, style }: any) => {
-  return (
-    <div style={style} className={classes.previewContainer}>
-      <img
-        src={`./images/wasteSeg/${item.url}.png`}
-        alt="wasteItemImage"
-      />
-    </div>
-  );
-};
+import Home from "./components/Home/Home";
 
 const App = () => {
-  const md = new MobileDetect(window.navigator.userAgent);
-  const isMobile = md.mobile() !== null;
-  const dndBackend = isMobile ? TouchBackend : HTML5Backend;
   registerServiceWorker();
   // useEffect(() => {
   //   if (isMobile) {
@@ -66,17 +47,10 @@ const App = () => {
   //   return () => {
   //     window.removeEventListener('orientationchange', handleOrientationChange);
   //   };
-  
+
   // }, []);
-  
-  return (
-    <DndProvider backend={dndBackend}>
-      <div >
-        <WasteSeg />
-        {isMobile && <Preview generator={generatePreview} />}
-      </div>
-    </DndProvider>
-  );
+
+  return <Home />;
 };
 
 const registerServiceWorker: any = async () => {
