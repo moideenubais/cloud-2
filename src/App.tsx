@@ -44,6 +44,25 @@ const App = () => {
       return () => {};
     }
   }, [isMobile]);
+  useEffect(() => {
+    const hideAddressBar = () => {
+      if (
+        window.innerWidth < window.innerHeight &&
+        !document.fullscreenElement // Check if browser is already in fullscreen mode
+      ) {
+        window.scrollTo(0, 1); // Scroll to hide the address bar
+      }
+    };
+
+    window.addEventListener('orientationchange', hideAddressBar);
+    window.addEventListener('resize', hideAddressBar);
+
+    return () => {
+      window.removeEventListener('orientationchange', hideAddressBar);
+      window.removeEventListener('resize', hideAddressBar);
+    };
+  }, [])
+  
   return (
     <DndProvider backend={dndBackend}>
       <div className="app">
