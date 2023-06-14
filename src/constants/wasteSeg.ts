@@ -22,7 +22,7 @@ export const WASTE_BINS: WasteBinType[] = [
     items: [],
   },
   {
-    id: 2,
+    id: 3,
     type: BinType.Hazardous,
     label: "Hazadous",
     imageOpened: "hazadousOpened",
@@ -30,7 +30,7 @@ export const WASTE_BINS: WasteBinType[] = [
     items: [],
   },
   {
-    id: 2,
+    id: 4,
     type: BinType.E_Waste,
     label: "E-Waste",
     imageOpened: "eOpened",
@@ -38,7 +38,7 @@ export const WASTE_BINS: WasteBinType[] = [
     items: [],
   },
   {
-    id: 2,
+    id: 5,
     type: BinType.Sanitary,
     label: "Sanitary",
     imageOpened: "sanitaryOpened",

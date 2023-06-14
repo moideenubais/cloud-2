@@ -23,51 +23,51 @@ const App = () => {
   const isMobile = md.mobile() !== null;
   const dndBackend = isMobile ? TouchBackend : HTML5Backend;
   registerServiceWorker();
-  useEffect(() => {
-    if (isMobile) {
-      const lockLandscapeOrientation = () => {
-        if (
-          window.screen.orientation &&
-          window.screen.orientation.lock &&
-          typeof window.screen.orientation.lock === "function"
-        ) {
-          // For modern browsers supporting screen.orientation API
-          window.screen.orientation.lock("landscape").catch((error) => {
-            console.log("Failed to lock the orientation:", error);
-          });
-        }
-      };
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     const lockLandscapeOrientation = () => {
+  //       if (
+  //         window.screen.orientation &&
+  //         window.screen.orientation.lock &&
+  //         typeof window.screen.orientation.lock === "function"
+  //       ) {
+  //         // For modern browsers supporting screen.orientation API
+  //         window.screen.orientation.lock("landscape").catch((error) => {
+  //           console.log("Failed to lock the orientation:", error);
+  //         });
+  //       }
+  //     };
 
-      lockLandscapeOrientation();
+  //     lockLandscapeOrientation();
 
-      // Clean up the event listener when the component unmounts
-      return () => {};
-    }
-  }, [isMobile]);
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      const isPortrait = window.innerWidth < window.innerHeight;
+  //     // Clean up the event listener when the component unmounts
+  //     return () => {};
+  //   }
+  // }, [isMobile]);
+  // useEffect(() => {
+  //   const handleOrientationChange = () => {
+  //     const isPortrait = window.innerWidth < window.innerHeight;
 
-      if (isPortrait) {
-        // Redirect to landscape view
-        if (window.screen.orientation && window.screen.orientation.lock) {
-          window.screen.orientation.lock('landscape');
-        }
-      }
-    };
+  //     if (isPortrait) {
+  //       // Redirect to landscape view
+  //       if (window.screen.orientation && window.screen.orientation.lock) {
+  //         window.screen.orientation.lock('landscape');
+  //       }
+  //     }
+  //   };
 
-    // Listen for orientation changes
-    window.addEventListener('orientationchange', handleOrientationChange);
+  //   // Listen for orientation changes
+  //   window.addEventListener('orientationchange', handleOrientationChange);
 
-    // Call the function on component mount
-    handleOrientationChange();
+  //   // Call the function on component mount
+  //   handleOrientationChange();
 
-    // Clean up the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange);
-    };
+  //   // Clean up the event listener when the component is unmounted
+  //   return () => {
+  //     window.removeEventListener('orientationchange', handleOrientationChange);
+  //   };
   
-  }, []);
+  // }, []);
   
   return (
     <DndProvider backend={dndBackend}>
