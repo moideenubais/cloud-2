@@ -21,6 +21,30 @@ export const WASTE_BINS: WasteBinType[] = [
     imageClosed: "wetClosed",
     items: [],
   },
+  {
+    id: 2,
+    type: BinType.Hazardous,
+    label: "Hazadous",
+    imageOpened: "hazadousOpened",
+    imageClosed: "hazadousClosed",
+    items: [],
+  },
+  {
+    id: 2,
+    type: BinType.E_Waste,
+    label: "E-Waste",
+    imageOpened: "eOpened",
+    imageClosed: "eClosed",
+    items: [],
+  },
+  {
+    id: 2,
+    type: BinType.Sanitary,
+    label: "Sanitary",
+    imageOpened: "sanitaryOpened",
+    imageClosed: "sanitaryClosed",
+    items: [],
+  },
 ];
 
 export const DRY_iTEMS: WasteItemType[] = [
@@ -74,5 +98,32 @@ export const WET_iTEMS: WasteItemType[] = [
     type: BinType.Wet,
     label: "organic eg",
     image: "wet/banana",
+  },
+];
+
+export const SANITARY_iTEMS: WasteItemType[] = [
+  {
+    id: 1001,
+    type: BinType.Sanitary,
+    label: "Bag",
+    image: "sanitary/bandage",
+  },
+  {
+    id: 1002,
+    type: BinType.Sanitary,
+    label: "hazar eg",
+    image: "sanitary/bandage1",
+  },
+  {
+    id: 1003,
+    type: BinType.Sanitary,
+    label: "organic eg",
+    image: "sanitary/ceaser",
+  },
+  {
+    id: 1004,
+    type: BinType.Sanitary,
+    label: "organic eg",
+    image: "sanitary/ciringe",
   },
 ];

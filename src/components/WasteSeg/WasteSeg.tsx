@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import WasteItem from "./WasteItem";
 import WasteBin from "./WasteBin";
 import classes from "./WasteSeg.module.css";
-import { WASTE_BINS } from "../../constants/wasteSeg";
+import { SANITARY_iTEMS, WASTE_BINS } from "../../constants/wasteSeg";
 import { DRY_iTEMS } from "../../constants/wasteSeg";
 import { WET_iTEMS } from "../../constants/wasteSeg";
 import { WasteItemType } from "./types";
@@ -13,7 +13,7 @@ const WasteSeg: React.FC = () => {
   const [wasteItems, setWasteItems] = useState<WasteItemType[]>([]);
 
   useEffect(() => {
-    const combinedArray = DRY_iTEMS.concat(WET_iTEMS);
+    const combinedArray = DRY_iTEMS.concat(WET_iTEMS,SANITARY_iTEMS);
     setWasteItems(shuffleArray(combinedArray));
   }, []);
 
