@@ -1,25 +1,54 @@
-import React from 'react';
-import { DndProvider } from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend'
-import WasteSeg from './components/WasteSeg/WasteSeg';
+import React, { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import WasteSeg from "./components/WasteSeg/WasteSeg";
+import MobileDetect from "mobile-detect";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 const App = () => {
-  registerServiceWorker()
+  const md = new MobileDetect(window.navigator.userAgent);
+  const isMobile = md.mobile() !== null;
+  const dndBackend = isMobile ? TouchBackend : HTML5Backend;
+  registerServiceWorker();
+  useEffect(() => {
+    if (isMobile) {
+      const lockLandscapeOrientation = () => {
+        if (
+          window.screen.orientation &&
+          window.screen.orientation.lock &&
+          typeof window.screen.orientation.lock === "function"
+        ) {
+          // For modern browsers supporting screen.orientation API
+          window.screen.orientation.lock("landscape").catch((error) => {
+            console.log("Failed to lock the orientation:", error);
+          });
+        }
+      };
+
+      lockLandscapeOrientation();
+
+      // Clean up the event listener when the component unmounts
+      return () => {};
+    }
+  }, [isMobile]);
   return (
-    <DndProvider backend={HTML5Backend}>
-    <div className="app">
-      <WasteSeg />
-    </div>
+    <DndProvider backend={dndBackend}>
+      <div className="app">
+        <WasteSeg />
+      </div>
     </DndProvider>
   );
 };
 
-const registerServiceWorker:any = async () => {
+const registerServiceWorker: any = async () => {
   if ("serviceWorker" in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register("/serviceWorker.js", {
-        scope: "/",
-      });
+      const registration = await navigator.serviceWorker.register(
+        "/serviceWorker.js",
+        {
+          scope: "/",
+        }
+      );
       if (registration.installing) {
         console.log("Service worker installing");
       } else if (registration.waiting) {
