@@ -47,7 +47,7 @@ export const WASTE_BINS: WasteBinType[] = [
   },
 ];
 
-export const DRY_iTEMS: WasteItemType[] = [
+export const DRY_ITEMS: WasteItemType[] = [
   {
     id: 1,
     type: BinType.Dry,
@@ -243,7 +243,7 @@ export const DRY_iTEMS: WasteItemType[] = [
   },
 ];
 
-export const WET_iTEMS: WasteItemType[] = [
+export const WET_ITEMS: WasteItemType[] = [
   {
     id: 501,
     type: BinType.Wet,
@@ -270,7 +270,7 @@ export const WET_iTEMS: WasteItemType[] = [
   },
 ];
 
-export const SANITARY_iTEMS: WasteItemType[] = [
+export const SANITARY_ITEMS: WasteItemType[] = [
   {
     id: 1001,
     type: BinType.Sanitary,
@@ -294,5 +294,164 @@ export const SANITARY_iTEMS: WasteItemType[] = [
     type: BinType.Sanitary,
     label: "organic eg",
     image: "sanitary/ciringe",
+  },
+];
+
+export const E_Waste_ITEMS: WasteItemType[] = [
+  {
+    id: 1501,
+    type: BinType.E_Waste,
+    label: "Bag",
+    image: "e-waste/batteries",
+  },
+  {
+    id: 1502,
+    type: BinType.E_Waste,
+    label: "hazar eg",
+    image: "e-waste/brokenAndroid",
+  },
+  {
+    id: 1503,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/dishWashMachine",
+  },
+  {
+    id: 1504,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/electricJar",
+  },
+  {
+    id: 1505,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/stove",
+  },
+  {
+    id: 1506,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/freezer",
+  },
+  {
+    id: 1507,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/headphone",
+  },
+  {
+    id: 1508,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/laptop",
+  },
+  {
+    id: 1509,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/microWave",
+  },
+  {
+    id: 1510,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/playStation",
+  },
+  {
+    id: 1511,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/mobile",
+  },
+  {
+    id: 1512,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/cell",
+  },
+  {
+    id: 1513,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/router",
+  },
+  {
+    id: 1514,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/oven",
+  },
+  {
+    id: 1515,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/washingMachine1",
+  },
+  {
+    id: 1516,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/toaster",
+  },
+  {
+    id: 1517,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/tv",
+  },
+  {
+    id: 1518,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/camera",
+  },
+  {
+    id: 1519,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/gps",
+  },
+  {
+    id: 1520,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/vaccumCleaner",
+  },
+  {
+    id: 1521,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/playstation1",
+  },
+  {
+    id: 1522,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/hairDryer",
+  },
+  {
+    id: 1523,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/setupBox",
+  },
+  {
+    id: 1524,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/joystick",
+  },
+  {
+    id: 1525,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/handMixer",
+  },
+  {
+    id: 1526,
+    type: BinType.E_Waste,
+    label: "organic eg",
+    image: "e-waste/laptop1",
   },
 ];

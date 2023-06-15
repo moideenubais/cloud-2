@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import WasteItem from "./WasteItem";
 import WasteBin from "./WasteBin";
 import classes from "./WasteSeg.module.css";
-import { SANITARY_iTEMS, WASTE_BINS } from "../../constants/wasteSeg";
-import { DRY_iTEMS } from "../../constants/wasteSeg";
-import { WET_iTEMS } from "../../constants/wasteSeg";
+import {
+  E_Waste_ITEMS,
+  SANITARY_ITEMS,
+  WASTE_BINS,
+} from "../../constants/wasteSeg";
+import { DRY_ITEMS } from "../../constants/wasteSeg";
+import { WET_ITEMS } from "../../constants/wasteSeg";
 import { WasteItemType } from "./types";
 import Modal from "../modal/Modal";
 
@@ -15,7 +19,11 @@ const WasteSeg: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const combinedArray = DRY_iTEMS.concat(WET_iTEMS, SANITARY_iTEMS);
+    const combinedArray = DRY_ITEMS.concat(
+      WET_ITEMS,
+      SANITARY_ITEMS,
+      E_Waste_ITEMS
+    );
     setWasteItems(shuffleArray(combinedArray));
   }, []);
 
