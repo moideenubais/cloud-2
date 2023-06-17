@@ -182,13 +182,19 @@ const NumberJackpot: FC = () => {
           })}
         </div> */}
               <div className={classes.numberContainer}>
-                {numberCollection.map((coll) => (
-                  <div className={`${classes.numberCollContainer}`}>
-                    {coll?.numbers.map((number, index) => {
+                {numberCollection.map((coll, collIndex) => (
+                  <div
+                    key={collIndex}
+                    className={`${classes.numberCollContainer}`}
+                  >
+                    {coll?.numbers.map((number, numberIndex) => {
                       const hiddenNumberColor =
-                        index === coll.position ? classes.questionColor : "";
+                        numberIndex === coll.position
+                          ? classes.questionColor
+                          : "";
                       return (
                         <div
+                          key={numberIndex}
                           className={`${
                             classes.numberBox
                           } ${hiddenNumberColor}  ${
@@ -198,7 +204,7 @@ const NumberJackpot: FC = () => {
                             setAnimateScroll(false);
                           }}
                         >
-                          {index === coll.position ? "?" : number}
+                          {numberIndex === coll.position ? "?" : number}
                         </div>
                       );
                     })}
@@ -211,9 +217,10 @@ const NumberJackpot: FC = () => {
               ></div>
             </div>
             <div className={classes.optionContainer}>
-              {numberSet?.options.map((number) => {
+              {numberSet?.options.map((number, optionIndex) => {
                 return (
                   <div
+                    key={optionIndex}
                     className={classes.optionBox}
                     onClick={() => handleSelection(number)}
                   >
