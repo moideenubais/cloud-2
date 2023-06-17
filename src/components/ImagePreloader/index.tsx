@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 interface ImagePreloaderProps {
   images: string[];
@@ -9,15 +9,11 @@ interface ImagePreloaderProps {
 const ImagePreloader: React.FC<ImagePreloaderProps> = ({
   images,
   children,
-  loadingIndicator = <div style={{color:"white"}}>Loading...</div>,
+  loadingIndicator = <div style={{ color: "white" }}>Loading...</div>,
 }) => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  useEffect(() => {
-    preloadImages();
-  }, []);
-
-  const preloadImages = () => {
+  const preloadImages = useCallback(() => {
     const imagePromises: Promise<void>[] = [];
 
     images.forEach((imageUrl) => {
@@ -38,7 +34,11 @@ const ImagePreloader: React.FC<ImagePreloaderProps> = ({
       .catch((error) => {
         console.error("Error preloading images:", error);
       });
-  };
+  }, [images]);
+
+  useEffect(() => {
+    preloadImages();
+  }, [preloadImages]);
 
   return imagesLoaded ? <>{children}</> : loadingIndicator;
 };
