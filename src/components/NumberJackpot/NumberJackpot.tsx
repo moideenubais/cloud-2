@@ -2,7 +2,14 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 import { GAME_ROUNDS } from "../../constants/numberJackpot";
 import classes from "./NumberJackpot.module.css";
 import Modal from "../modal/Modal";
-import ImagePreloader from "../ImagePreloader";
+
+const imagePaths = [
+  "/images/numberJackpot/NumberBG.png",
+  "/images/numberJackpot/robotClosed.png",
+  "/images/numberJackpot/robotOpen.png",
+  "/images/numberJackpot/Space.png",
+  "/images/numberJackpot/title.png",
+];
 
 interface NumberSet {
   numbers: number[];
@@ -20,36 +27,38 @@ const NumberJackpot: FC = () => {
   const [splashScreen, setSplashScreen] = useState(true);
 
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [preloadedImages, setPreloadedImages] = useState<string[]>([]);
+
+  function preloadImages(imageUrls: any) {
+    return new Promise((resolve, reject) => {
+      const loadedImages: any = {};
+      let imagesLoaded = 0;
+
+      function imageLoaded() {
+        imagesLoaded++;
+        if (imagesLoaded === imageUrls.length) {
+          resolve(loadedImages);
+        }
+      }
+
+      for (const url of imageUrls) {
+        const img = new Image();
+        img.onload = imageLoaded;
+        img.onerror = imageLoaded;
+        img.src = url;
+      
+      }
+    });
+  }
 
   useEffect(() => {
-    preloadImages();
+    const imageUrls = imagePaths.map((path) => process.env.PUBLIC_URL + path);
+
+    preloadImages(imageUrls)
+      .then(() => {
+        setImagesLoaded(true);
+      })
+      .catch((error) => console.error("Error preloading images:", error));
   }, []);
-
-  const preloadImages = async () => {
-    const imageFilenames = [
-      "NumberBG",
-      "robotClosed",
-      "robotOpen",
-      "Space",
-      "title",
-    ];
-    const promises = imageFilenames.map((filename) =>
-      import(`../../../public/images/numberJackpot/${filename}.png`).then(
-        (module) => module.default
-      )
-    );
-
-    try {
-      const imagePaths = await Promise.all(promises);
-      setPreloadedImages(imagePaths);
-      setImagesLoaded(true);
-    } catch (error) {
-      console.error("Error preloading images:", error);
-    }
-  };
-
-  console.log("number", numberSet);
 
   function shuffleArray(array: number[]): number[] {
     const shuffledArray = [...array];
@@ -135,7 +144,6 @@ const NumberJackpot: FC = () => {
   const handleSelection = (selected: number) => {
     if (selected === numberSet?.numbers[numberSet.position]) {
       const progress = Math.floor((currentGameRound * 100) / GAME_ROUNDS);
-      console.log("correct selection");
       if (currentGameRound === GAME_ROUNDS) {
         setProgress(progress);
         setShowModal(true);
@@ -148,90 +156,78 @@ const NumberJackpot: FC = () => {
       setAnimateScroll(true);
       return;
     }
-    console.log("wrong selection");
   };
 
+  if (!imagesLoaded) return <div style={{fontWeight:'bolder'}} className={classes.container}>Loading....</div>;
+
   return (
-    <div className={classes.container}>
-      {!splashScreen && imagesLoaded ? (
-        <ImagePreloader images={preloadedImages}>
-          <div className={classes.gameContainer}>
-            <div className={classes.progressContainer}>
-              <div
-                className={classes.progressBar}
-                style={{ height: `${progress}%` }}
-              ></div>
+    <div className={classes.container} style={{backgroundImage:'url(./images/numberJackpot/Space.png)'}}>
+      {!splashScreen ? (
+        <div className={classes.gameContainer}>
+          <div className={classes.progressContainer}>
+            <div
+              className={classes.progressBar}
+              style={{ height: `${progress}%` }}
+            ></div>
+          </div>
+          <div
+            style={{
+              backgroundImage: !animateScroll
+                ? "url(./images/numberJackpot/robotOpen.png)"
+                : "url(./images/numberJackpot/robotClosed.png)",
+            }}
+            className={classes.numberAndReset}
+          >
+            <div className={classes.numberContainer}>
+              {numberCollection.map((coll, collIndex) => (
+                <div
+                  key={collIndex}
+                  className={`${classes.numberCollContainer}`}
+                >
+                  {coll?.numbers.map((number, numberIndex) => {
+                    const hiddenNumberColor =
+                      numberIndex === coll.position
+                        ? classes.questionColor
+                        : "";
+                    return (
+                      <div
+                        key={numberIndex}
+                        className={`${
+                          classes.numberBox
+                        } ${hiddenNumberColor}  ${
+                          animateScroll ? classes.scrollAnimation : ""
+                        }`}
+                        onAnimationEnd={() => {
+                          setAnimateScroll(false);
+                        }}
+                      >
+                        {numberIndex === coll.position ? "?" : number}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
             </div>
             <div
-              style={{
-                backgroundImage: !animateScroll
-                  ? "url(./images/numberJackpot/robotOpen.png)"
-                  : "url(./images/numberJackpot/robotClosed.png)",
-              }}
-              className={classes.numberAndReset}
-            >
-              {/* <div className={classes.numberContainer}>
-          {numberSet?.numbers.map((number, index) => {
-            const hiddenNumberColor =
-              index === numberSet.position ? classes.questionColor : "";
-            return (
-              <div className={`${classes.numberBox} ${hiddenNumberColor}`}>
-                {index === numberSet.position ? "?" : number}
-              </div>
-            );
-          })}
-        </div> */}
-              <div className={classes.numberContainer}>
-                {numberCollection.map((coll, collIndex) => (
-                  <div
-                    key={collIndex}
-                    className={`${classes.numberCollContainer}`}
-                  >
-                    {coll?.numbers.map((number, numberIndex) => {
-                      const hiddenNumberColor =
-                        numberIndex === coll.position
-                          ? classes.questionColor
-                          : "";
-                      return (
-                        <div
-                          key={numberIndex}
-                          className={`${
-                            classes.numberBox
-                          } ${hiddenNumberColor}  ${
-                            animateScroll ? classes.scrollAnimation : ""
-                          }`}
-                          onAnimationEnd={() => {
-                            setAnimateScroll(false);
-                          }}
-                        >
-                          {numberIndex === coll.position ? "?" : number}
-                        </div>
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
-              <div
-                className={classes.reset}
-                onClick={generateNumberJackpot}
-              ></div>
-            </div>
-            <div className={classes.optionContainer}>
-              {numberSet?.options.map((number, optionIndex) => {
-                return (
-                  <div
-                    key={optionIndex}
-                    className={classes.optionBox}
-                    onClick={() => handleSelection(number)}
-                  >
-                    {number}
-                  </div>
-                );
-              })}
-            </div>
-            {showModal && <Modal message="Task Completed" />}
+              className={classes.reset}
+              onClick={generateNumberJackpot}
+            ></div>
           </div>
-        </ImagePreloader>
+          <div className={classes.optionContainer}>
+            {numberSet?.options.map((number, optionIndex) => {
+              return (
+                <div
+                  key={optionIndex}
+                  className={classes.optionBox}
+                  onClick={() => handleSelection(number)}
+                >
+                  {number}
+                </div>
+              );
+            })}
+          </div>
+          {showModal && <Modal message="Task Completed" />}
+        </div>
       ) : (
         <img
           className={classes.titleImage}
