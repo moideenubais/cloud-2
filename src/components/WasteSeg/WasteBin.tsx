@@ -1,14 +1,16 @@
 import React from "react";
 import classes from "./WasteBin.module.css";
 import { useDrop } from "react-dnd";
-import { BinType } from "./types";
+import { BinType, ImageVaiations } from "./types";
 
 interface Props {
   type: BinType;
   id: number;
   imageOpened: string;
   imageClosed: string;
+  images: ImageVaiations;
   onDrop: (id: number) => void;
+  draggingItemType: string;
 }
 
 const WasteBin: React.FC<Props> = ({
@@ -16,11 +18,13 @@ const WasteBin: React.FC<Props> = ({
   id,
   imageOpened,
   imageClosed,
+  images,
   onDrop,
+  draggingItemType,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ canDrop, isOver }, drop] = useDrop({
-    accept: type,
+    accept: "trash",
     drop: (item: any) => {
       console.log("Item dropped:", item.id);
       onDrop(item.id);
@@ -30,14 +34,76 @@ const WasteBin: React.FC<Props> = ({
       canDrop: monitor.canDrop(),
     }),
   });
+  let backgroundImage = `url(./images/wasteSeg/trash/${imageClosed}.png)`;
+  if (isOver) {
+    if (type === BinType.Dry) {
+      console.log("ttt type ", type, draggingItemType);
+      if (draggingItemType === BinType.Dry)
+        backgroundImage = `url(./images/wasteSeg/trash/${imageOpened}.png)`;
+      else if (draggingItemType === BinType.E_Waste)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.eToDry}.png)`;
+      else if (draggingItemType === BinType.Hazardous)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.hToDry}.png)`;
+      else if (draggingItemType === BinType.Wet)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.wToDry}.png)`;
+      else if (draggingItemType === BinType.Sanitary)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.sToDry}.png)`;
+    }
+    if (type === BinType.Wet) {
+      if (draggingItemType === BinType.Dry)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.dToWet}.png)`;
+      else if (draggingItemType === BinType.E_Waste)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.eToWet}.png)`;
+      else if (draggingItemType === BinType.Hazardous)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.hToWet}.png)`;
+      else if (draggingItemType === BinType.Wet)
+        backgroundImage = `url(./images/wasteSeg/trash/${imageOpened}.png)`;
+      else if (draggingItemType === BinType.Sanitary)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.sToWet}.png)`;
+    }
+    if (type === BinType.E_Waste) {
+      if (draggingItemType === BinType.Dry)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.dToE}.png)`;
+      else if (draggingItemType === BinType.E_Waste)
+        backgroundImage = `url(./images/wasteSeg/trash/${imageOpened}.png)`;
+      else if (draggingItemType === BinType.Hazardous)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.hToE}.png)`;
+      else if (draggingItemType === BinType.Wet)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.wToE}.png)`;
+      else if (draggingItemType === BinType.Sanitary)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.sToE}.png)`;
+    }
+    if (type === BinType.Sanitary) {
+      if (draggingItemType === BinType.Dry)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.dToSan}.png)`;
+      else if (draggingItemType === BinType.E_Waste)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.eToSan}.png)`;
+      else if (draggingItemType === BinType.Hazardous)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.hToSan}.png)`;
+      else if (draggingItemType === BinType.Wet)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.wToSan}.png)`;
+      else if (draggingItemType === BinType.Sanitary)
+        backgroundImage = `url(./images/wasteSeg/trash/${imageOpened}.png)`;
+    }
+    if (type === BinType.Hazardous) {
+      if (draggingItemType === BinType.Dry)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.dToHaz}.png)`;
+      else if (draggingItemType === BinType.E_Waste)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.eToHaz}.png)`;
+      else if (draggingItemType === BinType.Hazardous)
+        backgroundImage = `url(./images/wasteSeg/trash/${imageOpened}.png)`;
+      else if (draggingItemType === BinType.Wet)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.wToHaz}.png)`;
+      else if (draggingItemType === BinType.Sanitary)
+        backgroundImage = `url(./images/wasteSeg/trash/${images.sToHaz}.png)`;
+    }
+  }
 
   return (
     <div
       ref={drop}
       style={{
-        backgroundImage: `url(./images/wasteSeg/trash/${
-          isOver ? imageOpened : imageClosed
-        }.png)`,
+        backgroundImage: backgroundImage,
       }}
       className={classes.wasteBin}
     ></div>

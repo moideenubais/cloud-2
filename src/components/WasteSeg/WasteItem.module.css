@@ -4,7 +4,7 @@
 }
 
 .wasteContainer img {
-  width: 60px;
+  width: fit-content;
   height: 60px;
 }
 
@@ -16,7 +16,7 @@
 }
 @media (min-height: 650px) {
   .wasteContainer img {
-    width: 100px;
+    width: fit-content;
     height: 100px;
   }
 }

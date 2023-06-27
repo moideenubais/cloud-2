@@ -19,4 +19,32 @@ export interface WasteBinType {
   label: string;
   imageOpened: string;
   imageClosed: string;
+  images: ImageVaiations;
+}
+
+export interface ImageVaiations {
+  wToDry?: string;
+  sToDry?: string;
+  eToDry?: string;
+  hToDry?: string;
+
+  dToWet?: string;
+  sToWet?: string;
+  eToWet?: string;
+  hToWet?: string;
+
+  wToSan?: string;
+  eToSan?: string;
+  hToSan?: string;
+  dToSan?: string;
+
+  wToHaz?: string;
+  dToHaz?: string;
+  eToHaz?: string;
+  sToHaz?: string;
+
+  wToE?: string;
+  dToE?: string;
+  sToE?: string;
+  hToE?: string;
 }
