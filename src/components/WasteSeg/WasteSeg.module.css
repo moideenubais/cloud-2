@@ -5,7 +5,7 @@
   align-items: center;
   flex-direction: column;
   width: 100vw;
-  background-image: url("../../../public/images/wasteSeg/background.png");
+  background-image: url("../../static/wasteSeg/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -19,7 +19,7 @@
 
 .wasteBackground {
   width: 100vw;
-  background-image: url("../../../public/images/wasteSeg/wasteContainer.png");
+  background-image: url("../../static/wasteSeg/wasteContainer.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
