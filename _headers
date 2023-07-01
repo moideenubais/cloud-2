@@ -1,0 +1,8 @@
+/static/media/*.jpg
+  Cache-Control: public, max-age=31536000
+/static/media/*.jpeg
+  Cache-Control: public, max-age=31536000
+/static/media/*.png
+  Cache-Control: public, max-age=31536000
+/static/media/*.gif
+  Cache-Control: public, max-age=31536000

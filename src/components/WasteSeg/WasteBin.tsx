@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classes from "./WasteBin.module.css";
 import { useDrop } from "react-dnd";
 import { BinType, ImageVaiations } from "./types";
@@ -35,8 +35,12 @@ const WasteBin: React.FC<Props> = ({
       canDrop: monitor.canDrop(),
     }),
   });
-
-  const changeBackgroundImage = async ()=>{
+  const importAndSetBackground =  useCallback(async (path:string) => {
+    const backImage = await import(`../../static/wasteSeg/trash/${path}.png`)
+    setBackgroundImage(`url(${backImage.default})`)
+  },[])
+  
+  const changeBackgroundImage = useCallback( async ()=>{
     if (type === BinType.Dry) {
       if (draggingItemType === BinType.Dry){
         await importAndSetBackground(imageOpened)
@@ -98,34 +102,33 @@ const WasteBin: React.FC<Props> = ({
     //   else if (draggingItemType === BinType.Sanitary)
     //     backgroundImage = `url(./images/wasteSeg/trash/${images.sToHaz}.png)`;
     // }
-  }
+  },[draggingItemType,imageOpened,type,importAndSetBackground]);
+ 
 
   useEffect(() => {
     
    if (isOver) {
     changeBackgroundImage();
   } else {importAndSetBackground(imageClosed)}
-  }, [isOver])
-  
+  }, [isOver,changeBackgroundImage,imageClosed,importAndSetBackground])
+
+
 
   useEffect(() => {
     importAndSetBackground(imageClosed)
   
    
-  }, [])
+  }, [importAndSetBackground,imageClosed])
 
-  const loadBackgroundImage = async ()=>{
-    const backImage = await import(`../../static/wasteSeg/trash/${imageClosed}.png`)
-    setBackgroundImage(`url(${backImage.default})`)
-    // let img = require(`../../static/wasteSeg/trash/${imageClosed}.png`)
-  // console.log("ttt in",img)
+  // const loadBackgroundImage = async ()=>{
+  //   const backImage = await import(`../../static/wasteSeg/trash/${imageClosed}.png`)
+  //   setBackgroundImage(`url(${backImage.default})`)
+  //   // let img = require(`../../static/wasteSeg/trash/${imageClosed}.png`)
+  // // console.log("ttt in",img)
  
-  }
+  // }
 
-  const importAndSetBackground = async (path:string) => {
-    const backImage = await import(`../../static/wasteSeg/trash/${path}.png`)
-    setBackgroundImage(`url(${backImage.default})`)
-  }
+  
   
   
 

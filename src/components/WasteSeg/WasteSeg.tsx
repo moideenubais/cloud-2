@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import WasteItem from "./WasteItem";
 import WasteBin from "./WasteBin";
 import classes from "./WasteSeg.module.css";
@@ -15,36 +15,7 @@ const WasteSeg: React.FC = () => {
   const [draggingItemType, setDraggingItemType] = useState("");
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const combinedArray = DRY_ITEMS.concat(E_Waste_ITEMS);
-    setWasteItems(shuffleArray(combinedArray).slice(0, 10));
-
-    preloadImages();
-  }, []);
-
-  // function preloadImages(imageUrls: any) {
-  //   return new Promise((resolve, reject) => {
-  //     const loadedImages: any = {};
-  //     let imagesLoaded = 0;
-
-  //     function imageLoaded() {
-  //       imagesLoaded++;
-  //       if (imagesLoaded === imageUrls.length) {
-  //         resolve(loadedImages);
-  //       }
-  //     }
-
-  //     for (const url of imageUrls) {
-  //       const img = new Image();
-  //       img.onload = imageLoaded;
-  //       img.onerror = imageLoaded;
-  //       img.src = url;
-
-  //     }
-  //   });
-  // }
-
-  const preloadImages = async () => {
+  const preloadImages = useCallback( async () => {
     const images = [await import(`../../static/wasteSeg/background.png`)];
     let imagesLoaded = 0;
 
@@ -79,7 +50,39 @@ const WasteSeg: React.FC = () => {
     // img.src = backgroundImage;
     // img2.src = dryClosed
     // img2.onload = () =>{setLoading(false)}
-  };
+  },[wasteBins]);
+  
+
+  useEffect(() => {
+    const combinedArray = DRY_ITEMS.concat(E_Waste_ITEMS);
+    setWasteItems(shuffleArray(combinedArray).slice(0, 10));
+
+    preloadImages();
+  }, [preloadImages]);
+
+  // function preloadImages(imageUrls: any) {
+  //   return new Promise((resolve, reject) => {
+  //     const loadedImages: any = {};
+  //     let imagesLoaded = 0;
+
+  //     function imageLoaded() {
+  //       imagesLoaded++;
+  //       if (imagesLoaded === imageUrls.length) {
+  //         resolve(loadedImages);
+  //       }
+  //     }
+
+  //     for (const url of imageUrls) {
+  //       const img = new Image();
+  //       img.onload = imageLoaded;
+  //       img.onerror = imageLoaded;
+  //       img.src = url;
+
+  //     }
+  //   });
+  // }
+
+
 
   const backgroundStyle = loading
     ? { background: "linear-gradient(45deg, #ff6699, #66ccff)" }
